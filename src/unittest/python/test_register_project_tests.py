@@ -82,5 +82,11 @@ class TestRegisterProject(unittest.TestCase):
             enterprise_manager.register_project("A12345678", 'PRO03', "description", 123,"21/02/2026", 60000.00)
             self.assertEqual(str(cm.exception), "Department must be a string")
 
+    def test_TC15_department_not_a_valid_entry(self):
+        """TC15: Department is not a valid entry."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("A12345678", 'PRO03', "description", 'SALES',"21/02/2026", 60000.00)
+            self.assertEqual(str(cm.exception), "Invalid department entry")
 if __name__ == '__main__':
     unittest.main()
