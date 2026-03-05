@@ -47,10 +47,10 @@ class EnterpriseManager:
         except (ValueError, IndexError):
             raise EnterpriseManagementException("Invalid date format")
 
-        if day < 1:
+        if day < 1 or day > 31:
             raise EnterpriseManagementException("Days in date is not a valid value")
-        if day > 31:
-            raise EnterpriseManagementException("Days in date is not a valid value")
+        if month < 1 or month > 12:
+            raise EnterpriseManagementException("Month in date is not a valid value")
 
         pass
 
