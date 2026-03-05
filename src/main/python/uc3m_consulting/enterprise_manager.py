@@ -20,6 +20,9 @@ class EnterpriseManager:
             raise EnterpriseManagementException("Project achronym is too short")
         if len(project_achronym) > 10:
             raise EnterpriseManagementException("Project achronym is too long")
+        if not project_achronym.isalnum():
+            raise EnterpriseManagementException("Project achronym cannot contain special characters")
+
         pass
 
     @staticmethod
