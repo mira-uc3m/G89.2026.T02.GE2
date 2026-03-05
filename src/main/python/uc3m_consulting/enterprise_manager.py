@@ -22,6 +22,8 @@ class EnterpriseManager:
             raise EnterpriseManagementException("Project achronym is too long")
         if not project_achronym.isalnum():
             raise EnterpriseManagementException("Project achronym cannot contain special characters")
+        if not isinstance(project_description, str):
+            raise EnterpriseManagementException("Project description must be a string")
 
         pass
 
