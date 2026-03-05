@@ -35,6 +35,21 @@ class EnterpriseManager:
         if not isinstance(date, str):
             raise EnterpriseManagementException("Date must be a string")
 
+        # Extract numerical components to perform individual if-statement checks
+        try:
+            date_parts = date.split("/")
+            if len(date_parts) != 3:
+                raise EnterpriseManagementException("Invalid date format")
+
+            day = int(date_parts[0])
+            month = int(date_parts[1])
+            year = int(date_parts[2])
+        except (ValueError, IndexError):
+            raise EnterpriseManagementException("Invalid date format")
+
+        if day < 1:
+            raise EnterpriseManagementException("Days in date is not a valid value")
+
         pass
 
     @staticmethod
