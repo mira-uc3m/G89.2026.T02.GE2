@@ -26,6 +26,8 @@ class EnterpriseManager:
             raise EnterpriseManagementException("Project description must be a string")
         if len(project_description) < 10:
             raise EnterpriseManagementException("Project description is too short")
+        if len(project_description) > 30:
+            raise EnterpriseManagementException("Project description is too long")
 
         pass
 
