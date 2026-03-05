@@ -16,21 +16,21 @@ class TestRegisterProject(unittest.TestCase):
         """TC5: CIF must be a string."""
         enterprise_manager = EnterpriseManager()
         with self.assertRaises(EnterpriseManagementException) as cm:
-            enterprise_manager.register_project(123456789, "PRO02", "first test", "LOGISTICS", "02/01/2026", 60000.01)
+            enterprise_manager.register_project(123456789, "PRO02", "first test", "LOGISTICS", "02/01/2026", 60000.00)
         self.assertEqual(str(cm.exception), "CIF must be a string")
 
     def test_TC6_invalid_cif_algorithm(self):
         """TC6: CIF fails validation algorithm pattern."""
         enterprise_manager = EnterpriseManager()
         with self.assertRaises(EnterpriseManagementException) as cm:
-            enterprise_manager.register_project("AA123456B", "PRO03", "first test", "LOGISTICS", "03/01/2026", 60000.02)
+            enterprise_manager.register_project("AA123456B", "PRO03", "first test", "LOGISTICS", "03/01/2026", 60000.00)
         self.assertEqual(str(cm.exception), "CIF does not pass validation algorithm")
 
     def test_TC7_project_achronym_not_string(self):
         """TC7: Project achronym must be a string."""
         enterprise_manager = EnterpriseManager()
         with self.assertRaises(EnterpriseManagementException) as cm:
-            enterprise_manager.register_project("B12345678", True, "second test", "HR", "4/1/2026", 60000.03)
+            enterprise_manager.register_project("B12345678", True, "second test", "HR", "4/1/2026", 60000.00)
         self.assertEqual(str(cm.exception), "Project achronym must be a string")
 
     def test_TC8_project_achronym_too_short(self):
@@ -95,6 +95,20 @@ class TestRegisterProject(unittest.TestCase):
         with self.assertRaises(EnterpriseManagementException) as cm:
             enterprise_manager.register_project("A12345678", 'PRO03', "description", 'SALES', 1022025, 60000.00)
             self.assertEqual(str(cm.exception), "Date must be a string")
+
+    def test_TC17_invalid_date(self):
+        """TC17: Invalid date format."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("B12345677", 'PRO00', "Valid description length", "HR", "1022025", 60000.00)
+        self.assertEqual(str(cm.exception), "Invalid date format")
+
+    def test_TC18_invalid_date(self):
+        """TC18: Invalid day in date."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("B12345677", 'PRO00', "Valid description length", "HR", "00/05/2025", 60000.00)
+        self.assertEqual(str(cm.exception), "Days in date is not a valid value")
 
 if __name__ == '__main__':
     unittest.main()
