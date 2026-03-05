@@ -68,5 +68,33 @@ class TestRegisterProject(unittest.TestCase):
             enterprise_manager.register_project("A12345678", 'PRO03', "Inv Desc", "LEGAL", "21/02/2026", 60000.00)
         self.assertEqual(str(cm.exception), "Project description is too short")
 
+    def test_TC13_project_description_too_long(self):
+        """TC13: Project description too long (31)."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("A12345678", 'PRO03', "project description too long 31", "LEGAL", "21/02/2026", 60000.00)
+        self.assertEqual(str(cm.exception), "Project description is too long")
+
+    def test_TC14_department_not_a_string(self):
+        """TC14: Department is not a string."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("A12345678", 'PRO03', "description", 123,"21/02/2026", 60000.00)
+            self.assertEqual(str(cm.exception), "Department must be a string")
+
+    def test_TC15_department_not_a_valid_entry(self):
+        """TC15: Department is not a valid entry."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("A12345678", 'PRO03', "description", 'SALES',"21/02/2026", 60000.00)
+            self.assertEqual(str(cm.exception), "Invalid department entry")
+
+    def test_TC16_invalid_date_format(self):
+        """TC16: Date must be a string."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("A12345678", 'PRO03', "description", 'SALES', 1022025, 60000.00)
+            self.assertEqual(str(cm.exception), "Date must be a string")
+
 if __name__ == '__main__':
     unittest.main()
