@@ -26,5 +26,12 @@ class TestRegisterProject(unittest.TestCase):
             enterprise_manager.register_project("AA123456B", "PRO03", "first test", "LOGISTICS", "03/01/2026", 60000.02)
         self.assertEqual(str(cm.exception), "CIF does not pass validation algorithm")
 
+    def test_TC7_project_achronym_not_string(self):
+        """TC7: Project achronym must be a string."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("B12345678", True, "second test", "HR", "4/1/2026", 60000.03)
+        self.assertEqual(str(cm.exception), "Project achronym must be a string")
+
 if __name__ == '__main__':
     unittest.main()
