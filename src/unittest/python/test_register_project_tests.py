@@ -80,7 +80,7 @@ class TestRegisterProject(unittest.TestCase):
         enterprise_manager = EnterpriseManager()
         with self.assertRaises(EnterpriseManagementException) as cm:
             enterprise_manager.register_project("A12345678", 'PRO03', "description", 123,"21/02/2026", 60000.00)
-            self.assertEqual(str(cm.exception), "Department is not a string")
+            self.assertEqual(str(cm.exception), "Department must be a string")
 
 if __name__ == '__main__':
     unittest.main()
