@@ -103,11 +103,18 @@ class TestRegisterProject(unittest.TestCase):
             enterprise_manager.register_project("B12345677", 'PRO00', "Valid description length", "HR", "1022025", 60000.00)
         self.assertEqual(str(cm.exception), "Invalid date format")
 
-    def test_TC18_invalid_date(self):
-        """TC18: Invalid day in date."""
+    def test_TC18_invalid_day_00_date(self):
+        """TC18: Invalid day (00) in date."""
         enterprise_manager = EnterpriseManager()
         with self.assertRaises(EnterpriseManagementException) as cm:
             enterprise_manager.register_project("B12345677", 'PRO00', "Valid description length", "HR", "00/05/2025", 60000.00)
+        self.assertEqual(str(cm.exception), "Days in date is not a valid value")
+
+    def test_TC19_invalid_day_32_date(self):
+        """TC19: Invalid day (32) in date."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("B12345677", 'PRO00', "Valid description length", "HR", "32/05/2026", 60000.00)
         self.assertEqual(str(cm.exception), "Days in date is not a valid value")
 
 if __name__ == '__main__':
