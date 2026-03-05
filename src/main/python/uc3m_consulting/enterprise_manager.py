@@ -32,6 +32,8 @@ class EnterpriseManager:
             raise EnterpriseManagementException("Department must be a string")
         if department not in ['LEGAL', 'HR', 'FINANCE', 'LOGISTICS']:
             raise EnterpriseManagementException("Invalid department")
+        if not isinstance(date, str):
+            raise EnterpriseManagementException("Date must be a string")
 
         pass
 
