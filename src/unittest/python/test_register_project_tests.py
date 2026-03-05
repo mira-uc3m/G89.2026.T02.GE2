@@ -34,17 +34,25 @@ class TestRegisterProject(unittest.TestCase):
         self.assertEqual(str(cm.exception), "Project achronym must be a string")
 
     def test_TC8_project_achronym_too_short(self):
-        """TC7: Project achronym is too short (4)."""
+        """TC8: Project achronym is too short (4)."""
         enterprise_manager = EnterpriseManager()
         with self.assertRaises(EnterpriseManagementException) as cm:
             enterprise_manager.register_project("A12345678", 'PR01', "Project for development", "LEGAL", "21/02/2026", 60000.00)
         self.assertEqual(str(cm.exception), "Project achronym is too short")
 
     def test_TC9_project_achronym_too_long(self):
-        """TC7: Project achronym is too short (4)."""
+        """TC9: Project achronym is too long (10)."""
         enterprise_manager = EnterpriseManager()
         with self.assertRaises(EnterpriseManagementException) as cm:
             enterprise_manager.register_project("A12345678", 'PROJ1234567', "Project for development", "LEGAL", "21/02/2026", 60000.00)
         self.assertEqual(str(cm.exception), "Project achronym is too long")
+
+    def test_TC10_project_achronym_invalid_characters(self):
+        """TC10: Project achronym contains invalid characters."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("A12345678", 'PROJ_1!', "Project for development", "LEGAL", "21/02/2026", 60000.00)
+        self.assertEqual(str(cm.exception), "Project achronym cannot contain special characters")
+
 if __name__ == '__main__':
     unittest.main()
