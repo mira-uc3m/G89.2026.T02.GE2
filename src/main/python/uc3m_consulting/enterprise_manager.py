@@ -30,6 +30,8 @@ class EnterpriseManager:
             raise EnterpriseManagementException("Project description is too long")
         if not isinstance(department, str):
             raise EnterpriseManagementException("Department must be a string")
+        if department not in ['LEGAL', 'HR', 'FINANCE', 'LOGISTICS']:
+            raise EnterpriseManagementException("Invalid department")
 
         pass
 
