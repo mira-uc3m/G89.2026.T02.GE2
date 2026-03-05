@@ -18,6 +18,8 @@ class EnterpriseManager:
             raise EnterpriseManagementException("Project achronym must be a string")
         if len(project_achronym) < 5:
             raise EnterpriseManagementException("Project achronym is too short")
+        if len(project_achronym) > 10:
+            raise EnterpriseManagementException("Project achronym is too long")
         pass
 
     @staticmethod
