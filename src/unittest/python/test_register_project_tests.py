@@ -54,5 +54,12 @@ class TestRegisterProject(unittest.TestCase):
             enterprise_manager.register_project("A12345678", 'PROJ_1!', "Project for development", "LEGAL", "21/02/2026", 60000.00)
         self.assertEqual(str(cm.exception), "Project achronym cannot contain special characters")
 
+    def test_TC11_project_description_not_string(self):
+        """TC10: Project description not a string."""
+        enterprise_manager = EnterpriseManager()
+        with self.assertRaises(EnterpriseManagementException) as cm:
+            enterprise_manager.register_project("A12345678", 'PRO03', 12345, "LEGAL", "21/02/2026", 60000.00)
+        self.assertEqual(str(cm.exception), "Project description must be a string")
+
 if __name__ == '__main__':
     unittest.main()
