@@ -12,16 +12,21 @@ class EnterpriseManager:
         # TC5: Validate Type
         if not isinstance(company_cif, str):
             raise EnterpriseManagementException("CIF must be a string")
-
-        # TC6: Validation Algorithm (Basic pattern check for Letter + 8 chars)
-        cif_pattern = r'^[A-Z][0-9]{7}[A-Z0-9]$'
-        if not re.match(cif_pattern, company_cif):
+        if not self.validate_cif(company_cif):
             raise EnterpriseManagementException("CIF does not pass validation algorithm")
 
         pass
 
     @staticmethod
-    def validate_cif(cif: str):
-        """RETURNs TRUE IF THE IBAN RECEIVED IS VALID SPANISH IBAN,
-        OR FALSE IN OTHER CASE"""
+    def validate_cif(cif: str) -> bool:
+        """
+        Returns True if the CIF received is a valid Spanish CIF pattern,
+        otherwise returns False.
+        """
+        # CIF Pattern: 1 Letter + 7 Digits + 1 Control Character (Letter or Digit)
+        cif_pattern = r'^[A-Z][0-9]{7}[A-Z0-9]$'
+
+        if not cif or not re.match(cif_pattern, cif):
+            return False
+
         return True

@@ -2,7 +2,8 @@
 import unittest
 import json
 import os
-from src.main.python.uc3m_consulting import EnterpriseManager, EnterpriseManagementException
+from ...main.python.uc3m_consulting.enterprise_manager import EnterpriseManager
+from ...main.python.uc3m_consulting.enterprise_management_exception import EnterpriseManagementException
 
 class TestRegisterProject(unittest.TestCase):
     def setUp(self):
