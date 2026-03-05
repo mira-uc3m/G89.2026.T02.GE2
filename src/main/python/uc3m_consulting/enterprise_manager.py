@@ -24,6 +24,8 @@ class EnterpriseManager:
             raise EnterpriseManagementException("Project achronym cannot contain special characters")
         if not isinstance(project_description, str):
             raise EnterpriseManagementException("Project description must be a string")
+        if len(project_description) < 10:
+            raise EnterpriseManagementException("Project description is too short")
 
         pass
 
